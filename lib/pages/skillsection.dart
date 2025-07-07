@@ -81,48 +81,48 @@ class SkillsSection extends StatelessWidget {
 
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          colors: [Color(0xFF0F2027), Color(0xFF203A43), Color(0xFF2C5364)],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-      ),
-      child: LayoutBuilder(
-        builder: (context, constraints) {
-          final isWide = constraints.maxWidth > 700;
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                '🧠 Technical Skills & Core Competencies',
-                style: TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.cyanAccent,
-                ),
-              ),
-              const SizedBox(height: 30),
-              Column(
-                children: List.generate(skillGroups.length, (index) {
-                  final group = skillGroups[index];
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+      color: const Color(0xFF0F0F0F),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            '🧠 Technical Skills & Core Competencies',
+            style: TextStyle(
+              fontSize: 28,
+              fontWeight: FontWeight.bold,
+              color: Colors.cyanAccent,
+            ),
+          ),
+          const SizedBox(height: 30),
+          LayoutBuilder(
+            builder: (context, constraints) {
+              final isWide = constraints.maxWidth > 700;
+              final spacing = 20.0;
+              final columns = isWide ? 2 : 1;
+              final totalSpacing = (columns - 1) * spacing;
+              final boxWidth = (constraints.maxWidth - totalSpacing) / columns;
 
-                  return TweenAnimationBuilder(
-                    tween: Tween<double>(begin: 0, end: 1),
-                    duration: Duration(milliseconds: 500 + index * 150),
-                    builder: (context, value, child) => Opacity(
-                      opacity: value,
-                      child: Transform.translate(
-                        offset: Offset(0, (1 - value) * 30),
-                        child: child,
-                      ),
-                    ),
+              return Wrap(
+                spacing: spacing,
+                runSpacing: spacing,
+                children: skillGroups.map((group) {
+                  return SizedBox(
+                    width: boxWidth,
+                    height: 260, // fixed height ensures layout is bounded
                     child: Container(
-                      margin: const EdgeInsets.only(bottom: 32),
-                      width: isWide
-                          ? constraints.maxWidth / 2 - 40
-                          : constraints.maxWidth,
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: Colors.grey.shade900,
+                        borderRadius: BorderRadius.circular(12),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.cyanAccent.withOpacity(0.1),
+                            blurRadius: 6,
+                            offset: const Offset(0, 3),
+                          ),
+                        ],
+                      ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -131,46 +131,61 @@ class SkillsSection extends StatelessWidget {
                               FaIcon(
                                 group['icon'] as IconData,
                                 color: Colors.cyanAccent,
+                                size: 20,
                               ),
                               const SizedBox(width: 10),
-                              Text(
-                                group['title'] as String,
-                                style: const TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.white,
+                              Expanded(
+                                child: Text(
+                                  group['title'] as String,
+                                  style: const TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.white,
+                                  ),
                                 ),
                               ),
                             ],
                           ),
                           const SizedBox(height: 10),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: List.generate(
-                              (group['skills'] as List<String>).length,
-                              (i) {
-                                final skill =
-                                    (group['skills'] as List<String>)[i];
-                                return Text(
-                                  '${i + 1}. $skill',
-                                  style: const TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.white70,
+                          // Scrollable area with bounded height
+                          SizedBox(
+                            height: 170,
+                            // avoid overflow by bounding scroll area
+                            child: ScrollConfiguration(
+                              behavior: const ScrollBehavior().copyWith(
+                                overscroll: false,
+                              ),
+                              child: SingleChildScrollView(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: List.generate(
+                                    (group['skills'] as List<String>).length,
+                                    (i) => Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        vertical: 2,
+                                      ),
+                                      child: Text(
+                                        '${i + 1}. ${(group['skills'] as List<String>)[i]}',
+                                        style: const TextStyle(
+                                          fontSize: 14,
+                                          color: Colors.white70,
+                                        ),
+                                      ),
+                                    ),
                                   ),
-                                );
-                              },
+                                ),
+                              ),
                             ),
                           ),
                         ],
                       ),
                     ),
                   );
-                }),
-              ),
-            ],
-          );
-        },
+                }).toList(),
+              );
+            },
+          ),
+        ],
       ),
     );
   }

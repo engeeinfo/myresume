@@ -32,7 +32,7 @@ class HeroSection extends StatelessWidget {
               ],
             ),
             child: const CircleAvatar(
-              radius: 60,
+              radius: 150,
               backgroundImage: AssetImage('assets/images/edjpg.png'),
             ),
           ),
@@ -55,7 +55,7 @@ class HeroSection extends StatelessWidget {
           const SizedBox(height: 12),
 
           const Text(
-            'Embedded Systems & Flutter Developer',
+            'Embedded Systems & Flutter Developer @BOSCH',
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 20,

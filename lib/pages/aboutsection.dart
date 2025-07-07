@@ -34,11 +34,11 @@ class AboutSection extends StatelessWidget {
 
     return Container(
       width: double.infinity,
-      color: Colors.black,
+      color: const Color(0xFF0F0F0F),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const HeroSection(),
-
           const SizedBox(height: 40),
           const Text(
             'What I Offer',
@@ -60,7 +60,7 @@ class AboutSection extends StatelessWidget {
                 child: AnimatedContainer(
                   duration: const Duration(milliseconds: 300),
                   width: 300,
-                  height: 200,
+                  // height removed so content determines height
                   padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
                     color: Colors.white10,
@@ -68,7 +68,7 @@ class AboutSection extends StatelessWidget {
                     border: Border.all(color: Colors.white24),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withAlpha(51), // ~0.2 opacity
+                        color: Colors.black.withAlpha(51),
                         blurRadius: 10,
                         offset: const Offset(4, 4),
                       ),
@@ -92,13 +92,12 @@ class AboutSection extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 10),
-                      Expanded(
-                        child: Text(
-                          service['desc'] as String,
-                          style: const TextStyle(
-                            fontSize: 14,
-                            color: Colors.white70,
-                          ),
+                      Text(
+                        service['desc'] as String,
+                        style: const TextStyle(
+                          fontSize: 14,
+                          color: Colors.white70,
+                          height: 1.4,
                         ),
                       ),
                     ],

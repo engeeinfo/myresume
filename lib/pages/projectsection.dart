@@ -24,7 +24,6 @@ class ProjectSection extends StatelessWidget {
         'description':
             'Built a protocol converter between AMBA APB and SPI using Verilog, including functional simulation and timing validation on Spartan FPGA.',
         'icon': FontAwesomeIcons.rightLeft,
-        // updated from deprecated exchangeAlt
       },
       {
         'title': 'Environmental Monitoring Web Dashboard',
@@ -36,14 +35,8 @@ class ProjectSection extends StatelessWidget {
 
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          colors: [Color(0xFF0F2027), Color(0xFF203A43), Color(0xFF2C5364)],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+      color: const Color(0xFF0F0F0F), // ✅ Same as ContactSection background
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -64,14 +57,12 @@ class ProjectSection extends StatelessWidget {
                 width: 350,
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: Colors.white.withAlpha(25),
-                  // replaced deprecated withOpacity
+                  color: Colors.grey.shade900,
                   borderRadius: BorderRadius.circular(16),
                   border: Border.all(color: Colors.white24),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withAlpha(76),
-                      // similar to 0.3 opacity
+                      color: Colors.black.withOpacity(0.3),
                       blurRadius: 8,
                       offset: const Offset(2, 4),
                     ),
